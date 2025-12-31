@@ -7,7 +7,10 @@ export const users = pgTable("users", {
   name: text("name"),
   imageUrl: text("image_url"),
   createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
-  updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow(),
+  updatedAt: timestamp("updated_at", { mode: "date" })
+    .notNull()
+    .defaultNow()
+    .$onUpdate(() => new Date()),
 });
 
 export const products = pgTable("products", {
@@ -19,7 +22,10 @@ export const products = pgTable("products", {
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
   createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
-  updatedAt: timestamp("updated_at", { mode: "date" }).notNull().defaultNow(),
+  updatedAt: timestamp("updated_at", { mode: "date" })
+    .notNull()
+    .defaultNow()
+    .$onUpdate(() => new Date()),
 });
 
 export const comments = pgTable("comments", {
@@ -43,12 +49,12 @@ export const userRelations = relations(users, ({ many }) => ({
 
 export const productRelations = relations(products, ({ one, many }) => ({
   comments: many(comments),
-  users: one(users, { fields: [products.userId], references: [users.id] }),
+  user: one(users, { fields: [products.userId], references: [users.id] }),
 }));
 
 export const commentRelations = relations(comments, ({ one }) => ({
-  users: one(users, { fields: [comments.userId], references: [users.id] }),
-  products: one(products, {
+  user: one(users, { fields: [comments.userId], references: [users.id] }),
+  product: one(products, {
     fields: [comments.productId],
     references: [products.id],
   }),
