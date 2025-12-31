@@ -37,6 +37,7 @@ export const createComment = async (req: Request, res: Response) => {
       userId,
       productId,
     });
+    return res.status(201).json(newComment);
   } catch (error) {
     console.error("Error creating comment:", error);
     return res.status(500).json({ message: "Internal server error" });
