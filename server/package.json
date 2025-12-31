@@ -4,7 +4,8 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "bun --watch --smol run src/index.ts"
+    "dev": "bun --watch --smol run src/index.ts",
+    "db:push": "drizzle-kit push"
   },
   "dependencies": {
     "@clerk/express": "1.0.1",
