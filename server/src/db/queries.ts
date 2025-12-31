@@ -24,6 +24,11 @@ export const getUserById = async (id: string) => {
 
 // update a user by id
 export const updateUser = async (id: string, data: Partial<NewUser>) => {
+  // check if user exists
+  const existingUser = await getUserById(id);
+  if (!existingUser) {
+    throw new Error(`User not found with id: ${id}`);
+  }
   const [user] = await db
     .update(users)
     .set(data)
@@ -34,11 +39,26 @@ export const updateUser = async (id: string, data: Partial<NewUser>) => {
 
 // either creates a new user or updates an existing one
 export const upsertUser = async (data: NewUser) => {
-  const existingUser = await getUserById(data.id);
-  if (existingUser) {
-    return await updateUser(data.id, data);
-  }
-  return await createUser(data);
+  // const existingUser = await getUserById(data.id);
+  // if (existingUser) {
+  //   return await updateUser(data.id, data);
+  // }
+  // return await createUser(data);
+
+  // more efficient way using upsert
+  const [user] = await db
+    .insert(users)
+    .values(data)
+    .onConflictDoUpdate({
+      target: users.id,
+      set: {
+        email: data.email,
+        name: data.name,
+        imageUrl: data.imageUrl,
+      },
+    })
+    .returning();
+  return user;
 };
 
 // PRODUCT QUERIES
@@ -82,6 +102,11 @@ export const getProductsByUserId = async (userId: string) => {
 
 // update a product by id
 export const updateProduct = async (id: string, data: Partial<NewProduct>) => {
+  // check if product exists
+  const existingProduct = await getProductById(id);
+  if (!existingProduct) {
+    throw new Error(`Product not found with id: ${id}`);
+  }
   const [product] = await db
     .update(products)
     .set(data)
@@ -92,6 +117,11 @@ export const updateProduct = async (id: string, data: Partial<NewProduct>) => {
 
 // delete a product by id
 export const deleteProduct = async (id: string) => {
+  // check if product exists
+  const existingProduct = await getProductById(id);
+  if (!existingProduct) {
+    throw new Error(`Product not found with id: ${id}`);
+  }
   const [product] = await db
     .delete(products)
     .where(eq(products.id, id))
@@ -109,6 +139,11 @@ export const createComment = async (data: NewComment) => {
 
 // delete a comment by id
 export const deleteComment = async (id: string) => {
+  // check if comment exists
+  const existingComment = await getCommentById(id);
+  if (!existingComment) {
+    throw new Error(`Comment not found with id: ${id}`);
+  }
   const [comment] = await db
     .delete(comments)
     .where(eq(comments.id, id))
