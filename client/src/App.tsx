@@ -4,11 +4,12 @@ import ProductPage from "./pages/ProductPage";
 import ProfilePage from "./pages/ProfilePage";
 import ProductCreatePage from "./pages/ProductCreatePage";
 import EditProductPage from "./pages/EditProductPage";
+import Navbar from "./components/Navbar";
 
 const App = () => {
   return (
     <div className="min-h-screen bg-base-100">
-      <div>Navbar</div>
+      <Navbar />
       <main>
         <Routes>
           <Route path="/" element={<HomePage />} />
