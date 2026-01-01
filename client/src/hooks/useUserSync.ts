@@ -11,19 +11,25 @@ const useUserSync = () => {
     mutate: syncUserMutation,
     isSuccess,
     isPending,
-  } = useMutation({ mutationFn: syncUser });
+    isError,
+    error,
+  } = useMutation({
+    mutationFn: syncUser,
+    onError: (error) => console.error("User sync failed:", error),
+    retry: 1,
+  });
 
   useEffect(() => {
     if (isSignedIn && user && !isPending && !isSuccess) {
-      syncUserMutation({
-        email: user.primaryEmailAddress?.emailAddress || "",
-        name: user.fullName! ?? user.firstName,
-        imageUrl: user.imageUrl,
-      });
+      const email = user?.primaryEmailAddress?.emailAddress || "";
+      const name = user.fullName || user.firstName || user.username || "";
+      const imageUrl = user?.imageUrl;
+      syncUserMutation({ email, name, imageUrl });
     }
-  }, [isSignedIn, user, isPending, isSuccess, syncUserMutation]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSignedIn, user, isPending, isSuccess]);
 
-  return { isSynced: isSuccess };
+  return { isSynced: isSuccess, isError, error };
 };
 
 export default useUserSync;
