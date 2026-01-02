@@ -10,7 +10,7 @@
     "typescript": "^5"
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=18.0.0"
   },
   "scripts": {
     "build": "bun install --prefix backend && bun install --prefix frontend && bun run build --prefix frontend && bun run build --prefix backend",
