@@ -5,39 +5,28 @@ import {
   getAllProducts,
   getMyProducts,
   getProductById,
+  updateProduct,
 } from "../lib/api";
 
-// Hook to fetch all products
 export const useProducts = () => {
-  return useQuery({
-    queryKey: ["products"],
-    queryFn: getAllProducts,
-  });
+  return useQuery({ queryKey: ["products"], queryFn: getAllProducts });
 };
 
-// Hook to create a new product
 export const useCreateProduct = () => {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: createProduct,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["products"] });
-    },
-  });
+  return useMutation({ mutationFn: createProduct });
 };
 
-// Hook to fetch a single product by ID
-export const useProduct = (productId: string) => {
+export const useProduct = (id: string) => {
   return useQuery({
-    queryKey: ["product", productId],
-    queryFn: () => getProductById(productId),
-    enabled: !!productId,
+    queryKey: ["product", id],
+    queryFn: () => getProductById(id),
+    enabled: !!id,
   });
 };
 
-// Hook to delete a product
 export const useDeleteProduct = () => {
   const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: deleteProduct,
     onSuccess: () => {
@@ -46,10 +35,19 @@ export const useDeleteProduct = () => {
   });
 };
 
-// Hook to fetch products of the logged-in user
 export const useMyProducts = () => {
-  return useQuery({
-    queryKey: ["myProducts"],
-    queryFn: getMyProducts,
+  return useQuery({ queryKey: ["myProducts"], queryFn: getMyProducts });
+};
+
+export const useUpdateProduct = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: updateProduct,
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: ["products"] });
+      queryClient.invalidateQueries({ queryKey: ["product", variables.id] });
+      queryClient.invalidateQueries({ queryKey: ["myProducts"] });
+    },
   });
 };

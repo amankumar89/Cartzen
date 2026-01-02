@@ -47,3 +47,16 @@ export interface CommentsSectionProps {
   comments: Array<CommentProps>;
   currentUserId: string | null;
 }
+
+export interface EditFormProps {
+  product: ProductProps;
+  isPending: boolean;
+  isError: boolean;
+  onSubmit: (data: FormDataProps) => void;
+}
+
+export interface FormDataProps {
+  title: string;
+  description: string;
+  imageUrl: string;
+}
