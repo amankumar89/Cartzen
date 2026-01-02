@@ -14,7 +14,7 @@ import CommentsSection from "../components/CommentsSection";
 const ProductPage = () => {
   const { id } = useParams<{ id: string }>();
   const { userId } = useAuth();
-  const naviate = useNavigate();
+  const navigate = useNavigate();
 
   const { data: product, isLoading, isError } = useProduct(id!);
   const deleteProduct = useDeleteProduct();
@@ -22,7 +22,7 @@ const ProductPage = () => {
   const handleDelete = async () => {
     if (confirm("Are you sure you want to delete this product?")) {
       deleteProduct.mutate(id!, {
-        onSuccess: () => naviate("/"),
+        onSuccess: () => navigate("/"),
       });
     }
   };
@@ -136,7 +136,7 @@ const ProductPage = () => {
           <CommentsSection
             productId={id!}
             comments={product.comments}
-            currentUserId={userId!}
+            currentUserId={userId ?? null}
           />
         </div>
       </div>
