@@ -65,7 +65,7 @@ export const createComment = async ({
 };
 
 // DELETE a comment
-export const deleteComment = async ({ commentId }: { commentId: string }) => {
+export const deleteComment = async (commentId: string) => {
   const { data } = await api.delete(`/comments/${commentId}`);
   return data;
 };

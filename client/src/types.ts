@@ -26,6 +26,24 @@ export interface ProductProps {
     id: string;
   }>;
 }
+
 export interface ProductCardProps {
   product: ProductProps;
+}
+
+export interface CommentProps {
+  id: string;
+  content: string;
+  createdAt: string;
+  userId: string;
+  user: {
+    name: string | null;
+    imageUrl: string | null;
+  } | null;
+}
+
+export interface CommentsSectionProps {
+  productId: string;
+  comments: Array<CommentProps>;
+  currentUserId: string | null;
 }
