@@ -81,7 +81,10 @@ const CreateProductPage = () => {
                   src={formData.imageUrl}
                   alt="Preview"
                   className="w-full h-40 object-cover"
-                  onError={(e) => (e.target.style.display = "none")}
+                  onError={(e) => {
+                    (e.currentTarget as HTMLImageElement).style.display =
+                      "none";
+                  }}
                 />
               </div>
             )}
