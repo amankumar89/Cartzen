@@ -5,9 +5,9 @@ import { clerkMiddleware } from "@clerk/express";
 import path from "path";
 
 // routes
-import usersRoutes from "./routes/users.route";
-import productsRoutes from "./routes/products.route";
-import commentsRoutes from "./routes/comments.route";
+import usersRoutes from "./routes/users.route.js";
+import productsRoutes from "./routes/products.route.js";
+import commentsRoutes from "./routes/comments.route.js";
 
 const app = express();
 
@@ -16,7 +16,7 @@ app.use(clerkMiddleware());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/api/health", (req: Request, res: Response) => {
+app.get("/", (_: Request, res: Response) => {
   return res.status(200).json({
     message:
       "Welcome to Cartzen API - Powered by PostgreSQL, Drizzle ORM & Clerk Authentication",
@@ -45,7 +45,7 @@ if (ENV.NODE_ENV === "production") {
 }
 
 if (ENV.NODE_ENV === "development") {
-  app.listen(ENV.PORT, (error: Error | null) => {
+  app.listen(ENV.PORT, (error: Error | undefined) => {
     if (error) {
       console.error("Error starting server:", error);
       process.exit(1);
