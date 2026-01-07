@@ -2,7 +2,7 @@ import { Router } from "express";
 import {
   createComment,
   deleteComment,
-} from "../controllers/comments.controller";
+} from "../controllers/commentsController";
 import { requireAuth } from "@clerk/express";
 
 const router = Router();

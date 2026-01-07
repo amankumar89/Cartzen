@@ -1,5 +1,5 @@
 import { Router } from "express";
-import * as productsController from "../controllers/products.controller";
+import * as productsController from "../controllers/productsController";
 import { requireAuth } from "@clerk/express";
 
 const router = Router();

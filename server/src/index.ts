@@ -5,9 +5,9 @@ import { clerkMiddleware } from "@clerk/express";
 import path from "path";
 
 // routes
-import usersRoutes from "./routes/users.route";
-import productsRoutes from "./routes/products.route";
-import commentsRoutes from "./routes/comments.route";
+import usersRoutes from "./routes/usersRoute";
+import productsRoutes from "./routes/productsRoute";
+import commentsRoutes from "./routes/commentsRoute";
 
 const app = express();
 
@@ -36,16 +36,16 @@ if (ENV.NODE_ENV === "production") {
   const __dirname = path.resolve();
 
   // serve static files from frontend/dist
-  app.use(express.static(path.join(__dirname, "../frontend/dist")));
+  app.use(express.static(path.join(__dirname, "../client/dist")));
 
   // handle SPA routing - send all non-API routes to index.html - react app
   app.get("/{*any}", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
+    res.sendFile(path.join(__dirname, "../client/dist/index.html"));
   });
 }
 
 if (ENV.NODE_ENV === "development") {
-  app.listen(ENV.PORT, (error: Error | null) => {
+  app.listen(ENV.PORT, (error: Error | undefined) => {
     if (error) {
       console.error("Error starting server:", error);
       process.exit(1);
