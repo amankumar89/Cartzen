@@ -11,9 +11,10 @@
   "dependencies": {
     "@clerk/express": "1.7.60",
     "@clerk/types": "^4.101.9",
+    "@neondatabase/serverless": "^1.0.2",
     "cors": "2.8.5",
     "dotenv": "17.2.3",
-    "drizzle-orm": "0.44.7",
+    "drizzle-orm": "^0.44.7",
     "express": "^5.2.1",
     "pg": "8.16.3"
   },
