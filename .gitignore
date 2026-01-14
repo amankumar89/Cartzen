@@ -4,7 +4,8 @@ node_modules
 # output
 out
 *.tgz
-
+dist
+dist
 # code coverage
 coverage
 *.lcov
@@ -31,5 +32,3 @@ report.[0-9]_.[0-9]_.[0-9]_.[0-9]_.json
 
 # Finder (MacOS) folder config
 .DS_Store
-
-!client/dist

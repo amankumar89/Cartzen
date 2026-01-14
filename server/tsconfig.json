@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
     "module": "NodeNext",
-    "skipLibCheck": true
-  },
-  "exclude": ["node_modules"]
+    "moduleResolution": "NodeNext",
+    "target": "ES2022",
+    "outDir": "dist"
+  }
 }
