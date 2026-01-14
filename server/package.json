@@ -1,6 +1,5 @@
 {
   "name": "cartzen-server",
-  "type": "module",
   "dependencies": {
     "@clerk/express": "1.7.60",
     "@clerk/types": "^4.101.9",
