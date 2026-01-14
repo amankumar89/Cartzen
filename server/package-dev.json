@@ -1,6 +1,13 @@
 {
   "name": "cartzen-server",
+  "module": "src/index.ts",
   "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "db:push": "drizzle-kit push"
+  },
   "dependencies": {
     "@clerk/express": "1.7.60",
     "@clerk/types": "^4.101.9",
