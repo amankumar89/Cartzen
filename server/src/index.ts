@@ -18,11 +18,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // app.use(express.static(path.join(__dirname, "../client/dist")));
 
-app.use("/api/users", usersRoutes);
-app.use("/api/products", productsRoutes);
-app.use("/api/comments", commentsRoutes);
-
-app.get("/{*any}", (_: Request, res: Response) => {
+app.get("/", (_: Request, res: Response) => {
   // serve static files from frontend/dist
   // handle SPA routing - send all non-API routes to index.html - react app
   // return res.sendFile(path.join(__dirname, "../client/dist/index.html"));
@@ -36,6 +32,10 @@ app.get("/{*any}", (_: Request, res: Response) => {
     },
   });
 });
+
+app.use("/api/users", usersRoutes);
+app.use("/api/products", productsRoutes);
+app.use("/api/comments", commentsRoutes);
 
 // if (ENV.NODE_ENV === "production") {
 // }
