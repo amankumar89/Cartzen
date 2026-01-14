@@ -36,11 +36,11 @@ if (ENV.NODE_ENV === "production") {
   const __dirname = path.resolve();
 
   // serve static files from frontend/dist
-  app.use(express.static(path.join(__dirname, "../client/dist")));
+  app.use(express.static(path.join(__dirname, "web/dist")));
 
   // handle SPA routing - send all non-API routes to index.html - react app
   app.get("/{*any}", (req, res) => {
-    res.sendFile(path.join(__dirname, "../client/dist/index.html"));
+    res.sendFile(path.join(__dirname, "web/dist/index.html"));
   });
 }
 
