@@ -12,7 +12,7 @@ import commentsRoutes from "./routes/commentsRoute";
 const app = express();
 // const __dirname = path.resolve();
 
-app.use(cors({ origin: "*", credentials: true }));
+app.use(cors({ origin: ENV.FRONTEND_URL, credentials: true }));
 app.use(clerkMiddleware());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
